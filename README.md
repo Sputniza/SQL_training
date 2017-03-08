@@ -1,2 +1,2 @@
 # Data-Science-A-Z
-training examples from the Udemy data science course
+Exercises completed for the Udemy course Data-Science-A-Z using python, pandas and scikit-learn
