@@ -37,8 +37,10 @@ has bought something on that date.
 ## Goal
 We have two tables. One table has all $ transactions from users during the month of March and
 one for the month of April.
+
 Write a query that returns the total amount of money spent by each user. That is, the sum
 of the column transaction_amount for each user over both tables.
+
 Write a query that return day by day the cumulative sum of money spent by each user.
 That is, for each day, from March 1st to April 30, we should have how much money each
 user has spent in total until that day. Obviously, on the last day (April 30), the numbers
