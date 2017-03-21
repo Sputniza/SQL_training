@@ -1,0 +1,50 @@
+# PART ONE
+
+SELECT  DISTINCT sub.user_id,
+          SUM(sub.amount) OVER
+          (PARTITION BY sub.user_id)
+         AS total_per_user
+      
+          FROM(    
+              SELECT  user_id, 
+                      SUM(transaction_amount) as amount
+                FROM sneha_priya.query_four_march
+                GROUP BY user_id
+              
+              UNION
+              
+              SELECT  user_id, 
+                      SUM(transaction_amount) as amount
+                FROM sneha_priya.query_four_april
+                GROUP BY user_id) sub
+       
+ORDER BY 1
+
+
+
+
+
+# PART TWO
+
+SELECT  DISTINCT sub.user_id,
+          sub.date AS date,
+          SUM(sub.amount) OVER
+          (PARTITION BY sub.user_id ORDER BY sub.date)
+         AS running_total_per_user
+      
+          FROM(    
+              SELECT  user_id, 
+                      date, 
+                      SUM(transaction_amount) as amount
+                FROM sneha_priya.query_four_march
+                GROUP BY user_id, date
+              
+              UNION
+              
+              SELECT  user_id, 
+                      date, 
+                      SUM(transaction_amount) as amount
+                FROM sneha_priya.query_four_april
+                GROUP BY user_id, date) sub
+       
+ORDER BY 1,2
