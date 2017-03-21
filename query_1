@@ -1,0 +1,15 @@
+SELECT user_id,
+       difference AS time_diff_last_two_actions
+  FROM (
+    SELECT user_id,
+           unix_timestamp,
+           unix_timestamp -LAG(unix_timestamp, 1) OVER
+             (PARTITION BY user_id ORDER BY unix_timestamp)
+             AS difference,
+           RANK() OVER (PARTITION BY user_id
+                    ORDER BY unix_timestamp DESC)
+              AS rank
+      FROM sneha_priya.query_one
+      ORDER BY 1
+       ) sub
+ WHERE sub.rank = 1 AND sub.difference IS NOT NULL
