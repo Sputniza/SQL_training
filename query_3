@@ -1,0 +1,12 @@
+SELECT user_id,
+       sub.power_user_since
+  FROM (
+    SELECT user_id,
+           LEFT((date::VARCHAR), 10) AS power_user_since,
+           RANK() OVER (PARTITION BY user_id
+                    ORDER BY date)
+              AS rank
+      FROM sneha_priya.query_three
+      ORDER BY 1
+       ) sub
+ WHERE sub.rank = 10
